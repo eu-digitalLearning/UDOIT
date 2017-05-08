@@ -89,7 +89,7 @@ class Udoit {
         $this->content_types = $data['content_types'];
         $this->course_id     = $data['course_id'];
         $this->course_title  = $data['course_title'];
-        $this->total_results = ['errors' => 0, 'warnings' => 0, 'suggestions' => 0];
+        $this->total_results = ['errors' => 0, 'warnings' => 0, 'suggestions' => 0, 'unscannables' => 0];
         $this->module_urls   = [];
         $this->unscannable   = [];
     }
@@ -150,6 +150,7 @@ class Udoit {
                 'amount' => count($this->unscannable)
             ];
         }
+        $this->total_results['unscannables'] = count($this->unscannable);
 
         // so the ajax call knows we're done
         session_start();
