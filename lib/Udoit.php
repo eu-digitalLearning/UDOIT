@@ -73,6 +73,10 @@ class Udoit {
      */
     public $unscannable;
 
+    /**
+     * @var array - Summary showing total number of each error
+     */
+    public $error_summary;
 
     /**
      * @var string - stringified json report
@@ -92,6 +96,7 @@ class Udoit {
         $this->total_results = ['errors' => 0, 'warnings' => 0, 'suggestions' => 0];
         $this->module_urls   = [];
         $this->unscannable   = [];
+        $this->error_summary = [];
     }
 
     /**
@@ -116,6 +121,7 @@ class Udoit {
                     $this->total_results['suggestions'] += count($r['suggestion']);
                 }
             }
+
 
             if ($courseContentType['module_urls']) {
                 $this->module_urls = $courseContentType['module_urls'];
@@ -160,6 +166,7 @@ class Udoit {
             'course'        => $this->course_title,
             'total_results' => $this->total_results,
             'content'       => $this->bad_content,
+            'error_summary' => $this->error_summary
         ];
 
         $this->json_report = json_encode($to_encode);
@@ -203,6 +210,15 @@ class Udoit {
                 }
                 elseif ($value['severity_num'] == 3) {
                     $suggestion[] = $value;
+                }
+
+                if (!isset($this->error_summary[$value['title']])) {
+                    $this->error_summary[$value['title']] = new stdClass();
+                    $this->error_summary[$value['title']]->count = 1;
+                    $severity_name = ($value['severity_num'] == 3) ? 'label-primary' : 'label-danger';
+                    $this->error_summary[$value['title']]->severity = $severity_name;
+                } else {
+                    $this->error_summary[$value['title']]->count++;
                 }
 
                 if (count($value) > 0) {

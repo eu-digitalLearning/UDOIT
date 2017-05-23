@@ -254,17 +254,17 @@ $doc.ready(function() {
 	$doc.on('click', '#udoitForm button.submit', runScanner);
 
 	// result panel collapsing
-	$doc.on('click', '.errorItem .panel-heading .btn-toggle', function() {
+	$doc.on('click', '.panel-heading .btn-toggle', function() {
 		$(this).children('button span').removeClass('glyphicon-minus').addClass('glyphicon-plus');
 		var $errorItem = $(this).parent();
-		if ($errorItem.parent().find('.errorSummary').is(':visible')) {
-			$errorItem.parent().find('.errorSummary').slideUp(function() {
+		if ($errorItem.parent().find('.panel-body').is(':visible')) {
+			$errorItem.parent().find('.panel-body').slideUp(function() {
 				$errorItem.children('button span').removeClass('glyphicon-minus').addClass('glyphicon-plus');
 			});
 		}
 		else {
 			$(this).children('button span').removeClass('glyphicon-plus').addClass('glyphicon-minus');
-			$errorItem.parent().find('.errorSummary').slideDown();
+			$errorItem.parent().find('.panel-body').slideDown();
 		}
 	});
 	// END result panel collapsing

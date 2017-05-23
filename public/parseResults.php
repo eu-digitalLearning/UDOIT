@@ -70,6 +70,7 @@ $results = [
 	'course'              => $udoit_report->course,
 	'error_count'         => $udoit_report->total_results->errors,
 	'suggestion_count'    => $udoit_report->total_results->suggestions,
+	'error_summary'		  => $udoit_report->error_summary,
 	'report_groups'       => $udoit_report->content,
 	'post_path'           => $post_input['path'],
 	'fixable_error_types' => ["cssTextHasContrast", "imgNonDecorativeHasAlt", "tableDataShouldHaveTh", "tableThShouldHaveScope", "headersHaveText", "aMustContainText", "imgAltIsDifferent", "imgAltIsTooLong"],
